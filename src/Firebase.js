@@ -1,14 +1,19 @@
 import firebase from 'firebase';
 
-const settings = {timestampsInSnapshots: true};
+// const settings = {timestampsInSnapshots: true};
 
 const config = {
-  apiKey: "Your_Firebase_API_KEY",
-  databaseURL: "Your_Firebase_Database_URL",
-  projectId: "Your_Firebase_Project_ID"
+  apiKey: "AIzaSyB70qbZDsJJiKCrX0sjyChOL6hSQjnxEME",
+  authDomain: "fepex-app.firebaseapp.com",
+  databaseURL: "https://fepex-app.firebaseio.com",
+  projectId: "fepex-app",
+  storageBucket: "fepex-app.appspot.com",
+  messagingSenderId: "108785397058",
+  appId: "1:108785397058:web:913db4ebe4db4e0a",
 };
+
 firebase.initializeApp(config);
 
-firebase.firestore().settings(settings);
+// firebase.firestore().settings(settings);
 
 export default firebase;

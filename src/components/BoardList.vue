@@ -1,13 +1,31 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <h2>
-        Board List
-        <b-link href="#/add-board">(Add Board)</b-link>
-      </h2>
-      <b-table striped hover :items="boards" :fields="fields">
+      <b-input-group size="sm" class="mt-3 mb-3">
+        <b-form-input v-model="keyword" placeholder="Procurar..." type="text">
+        </b-form-input>
+        <b-input-group-append>
+          <b-button
+            size="sm"
+            variant="link"
+            class="mb-2"
+            :disabled="!keyword"
+            @click="keyword = ''"
+          >
+            <b-icon
+              icon="backspace"
+              aria-hidden="true"
+              variant="danger"
+            ></b-icon>
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
+
+      <b-table striped hover :items="items" :fields="fields" :keyword="keyword">
         <template v-slot:cell(actions)="data">
-          <b-button @click.stop="details(data.item)" variant="primary">Details</b-button>
+          <b-button @click.stop="details(data.item)" variant="primary"
+            >Details</b-button
+          >
         </template>
       </b-table>
     </b-col>
@@ -15,45 +33,59 @@
 </template>
 
 <script>
-
-import firebase from '../Firebase'
-import router from '../router'
+import firebase from "../Firebase";
+import router from "../router";
 
 export default {
-  name: 'BoardList',
-  data () {
+  name: "BoardList",
+  data() {
     return {
+      keyword: "",
       fields: [
-        { key: 'title', label: 'Title', sortable: true, 'class': 'text-left' },
-        { key: 'actions', label: 'Action', 'class': 'text-center' }
+        { key: "titulo", label: "Título", sortable: true, class: "text-left" },
+        { key: "actions", label: "Action", class: "text-center" },
       ],
-      boards: [],
+      dados: [],
       errors: [],
-      ref: firebase.firestore().collection('boards'),
-    }
+      ref: firebase.firestore().collection("Trabalhos2019"),
+    };
   },
-  created () {
+  computed: {
+    items() {
+      return this.keyword
+        ? this.dados.filter(
+            (item) =>
+              item.titulo.toLowerCase().includes(this.keyword.toLowerCase()) ||
+              item.autores.toLowerCase().includes(this.keyword.toLowerCase()) ||
+              item.resumo.toLowerCase().includes(this.keyword.toLowerCase())
+          )
+        : this.dados;
+    },
+  },
+  created() {
     this.ref.onSnapshot((querySnapshot) => {
-      this.boards = [];
+      this.dados = [];
       querySnapshot.forEach((doc) => {
-        this.boards.push({
+        this.dados.push({
           key: doc.id,
-          title: doc.data().title
+          titulo: doc.data().titulo,
+          resumo: doc.data().resumo,
+          autores: doc.data().autores,
         });
       });
     });
   },
   methods: {
-    details (board) {
-      router.push({ name: 'ShowBoard', params: { id: board.key }})
-    }
-  }
-}
+    details(board) {
+      router.push({ name: "ShowBoard", params: { id: board.key } });
+    },
+  },
+};
 </script>
 
 <style>
-  .table {
-    width: 96%;
-    margin: 0 auto;
-  }
+.table {
+  width: 96%;
+  margin: 0 auto;
+}
 </style>
