@@ -1,30 +1,24 @@
-import VueRouter from 'vue-router'
-import BoardList from '@/components/BoardList'
-import ShowBoard from '@/components/ShowBoard'
-import AddBoard from '@/components/AddBoard'
-import EditBoard from '@/components/EditBoard'
+import VueRouter from "vue-router";
+import TrabalhoList from "@/components/TrabalhoList";
+import TrabalhoItem from "@/components/TrabalhoItem";
+import Home from "@/components/Home";
 
 export default new VueRouter({
   routes: [
     {
-      path: '/',
-      name: 'BoardList',
-      component: BoardList
+      path: "/",
+      name: "Home",
+      component: Home,
     },
     {
-      path: '/show-board/:id',
-      name: 'ShowBoard',
-      component: ShowBoard
+      path: "/trabalhos",
+      name: "TrabalhoList",
+      component: TrabalhoList,
     },
     {
-      path: '/add-board',
-      name: 'AddBoard',
-      component: AddBoard
+      path: "/trabalhos/:ano/:id",
+      name: "TrabalhoItem",
+      component: TrabalhoItem,
     },
-    {
-      path: '/edit-board/:id',
-      name: 'EditBoard',
-      component: EditBoard
-    }
-  ]
-})
+  ],
+});

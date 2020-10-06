@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <NavBar class="mb-3" />
     <b-container>
       <router-view></router-view>
     </b-container>
@@ -8,19 +9,22 @@
 </template>
 
 <script>
-
+import NavBar from "./components/NavBar";
 export default {
-  name: 'app',
-}
+  name: "app",
+  components: {
+    NavBar,
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
