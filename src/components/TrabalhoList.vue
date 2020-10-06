@@ -1,7 +1,11 @@
 <template>
   <b-row>
-    <loading-overlay :active="isLoading" :is-full-page="fullPage" :loader="loader" />
-    <b-col cols="12" class="p-0">
+    <loading-overlay
+      :active="isLoading"
+      :is-full-page="fullPage"
+      :loader="loader"
+    />
+    <b-col cols="12" class="">
       <b-input-group size="sm" class="mt-3 mb-3">
         <b-form-input v-model="keyword" placeholder="Procurar..." type="text">
         </b-form-input>
@@ -22,72 +26,120 @@
         </b-input-group-append>
       </b-input-group>
 
-        <b-tabs align="center" active-nav-item-class="font-weight-bold text-info">
-          <b-tab title="FEPEX - 2019" active>
-              <b-table striped hover :items="items.filter((item) => item.ano == '2019')" :fields="fields" :keyword="keyword" responsive="sm">
-                <template v-slot:cell(titulo)="data">
-                  <b-button @click.stop="details(data.item)" variant="link" class="m-0 p-0">
-                    {{data.item.titulo}}
-                  </b-button>
-                  <p><b-badge href="#" class="mr-1" variant="warning">
-                      {{ data.item.categoria }}
-                    </b-badge>
-                    <b-badge href="#"  variant="danger">
-                      {{ data.item.tipo }}
-                    </b-badge></p>
-                  
-                </template>
-            </b-table>
-          </b-tab>
-          <b-tab title="FEPEX - 2018">
-            <b-table striped hover :items="items.filter((item) => item.ano == '2018')" :fields="fields" :keyword="keyword" responsive="sm">
-                <template v-slot:cell(titulo)="data">
-                  <b-button @click.stop="details(data.item)" variant="link" class="m-0 p-0">
-                    {{data.item.titulo}}
-                  </b-button>
-                  <p><b-badge href="#" class="mr-1" variant="warning">
-                      {{ data.item.categoria }}
-                    </b-badge>
-                    <b-badge href="#"  variant="danger">
-                      {{ data.item.tipo }}
-                    </b-badge></p>
-                  
-                </template>
-            </b-table>
-          </b-tab>
-          <b-tab title="FEPEX - 2017">
-            <b-table striped hover :items="items.filter((item) => item.ano == '2017')" :fields="fields" :keyword="keyword" responsive="sm">
-                <template v-slot:cell(titulo)="data">
-                  <b-button @click.stop="details(data.item)" variant="link" class="m-0 p-0">
-                    {{data.item.titulo}}
-                  </b-button>
-                  <p><b-badge href="#" class="mr-1" variant="warning">
-                      {{ data.item.categoria }}
-                    </b-badge>
-                    <b-badge href="#"  variant="danger">
-                      {{ data.item.tipo }}
-                    </b-badge></p>
-                  
-                </template>
-            </b-table>
-          </b-tab>
-          <b-tab title="FEPEX - 2016">
-            <b-table striped hover :items="items.filter((item) => item.ano == '2016')" :fields="fields" :keyword="keyword" responsive="sm">
-                <template v-slot:cell(titulo)="data">
-                  <b-button @click.stop="details(data.item)" variant="link" class="m-0 p-0">
-                    {{data.item.titulo}}
-                  </b-button>
-                  <p><b-badge href="#" class="mr-1" variant="warning">
-                      {{ data.item.categoria }}
-                    </b-badge>
-                    <b-badge href="#"  variant="danger">
-                      {{ data.item.tipo }}
-                    </b-badge></p>
-                  
-                </template>
-            </b-table>
-          </b-tab>
-        </b-tabs>
+      <b-tabs fill active-nav-item-class="font-weight-bold text-info">
+        <b-tab title="FEPEX - 2019" active>
+          <b-table
+            striped
+            hover
+            :items="items.filter((item) => item.ano == '2019')"
+            :fields="fields"
+            :keyword="keyword"
+            responsive="sm"
+          >
+            <template v-slot:cell(titulo)="data">
+              <b-button
+                @click.stop="details(data.item)"
+                variant="link"
+                class="m-0 p-0"
+              >
+                {{ data.item.titulo }}
+              </b-button>
+              <p>
+                <b-badge href="#" class="mr-1" variant="warning">
+                  {{ data.item.categoria }}
+                </b-badge>
+                <b-badge href="#" variant="danger">
+                  {{ data.item.tipo }}
+                </b-badge>
+              </p>
+            </template>
+          </b-table>
+        </b-tab>
+        <b-tab title="FEPEX - 2018">
+          <b-table
+            striped
+            hover
+            :items="items.filter((item) => item.ano == '2018')"
+            :fields="fields"
+            :keyword="keyword"
+            responsive="sm"
+          >
+            <template v-slot:cell(titulo)="data">
+              <b-button
+                @click.stop="details(data.item)"
+                variant="link"
+                class="m-0 p-0"
+              >
+                {{ data.item.titulo }}
+              </b-button>
+              <p>
+                <b-badge href="#" class="mr-1" variant="warning">
+                  {{ data.item.categoria }}
+                </b-badge>
+                <b-badge href="#" variant="danger">
+                  {{ data.item.tipo }}
+                </b-badge>
+              </p>
+            </template>
+          </b-table>
+        </b-tab>
+        <b-tab title="FEPEX - 2017">
+          <b-table
+            striped
+            hover
+            :items="items.filter((item) => item.ano == '2017')"
+            :fields="fields"
+            :keyword="keyword"
+            responsive="sm"
+          >
+            <template v-slot:cell(titulo)="data">
+              <b-button
+                @click.stop="details(data.item)"
+                variant="link"
+                class="m-0 p-0"
+              >
+                {{ data.item.titulo }}
+              </b-button>
+              <p>
+                <b-badge href="#" class="mr-1" variant="warning">
+                  {{ data.item.categoria }}
+                </b-badge>
+                <b-badge href="#" variant="danger">
+                  {{ data.item.tipo }}
+                </b-badge>
+              </p>
+            </template>
+          </b-table>
+        </b-tab>
+        <b-tab title="FEPEX - 2016">
+          <b-table
+            striped
+            hover
+            :items="items.filter((item) => item.ano == '2016')"
+            :fields="fields"
+            :keyword="keyword"
+            responsive="sm"
+          >
+            <template v-slot:cell(titulo)="data">
+              <b-button
+                @click.stop="details(data.item)"
+                variant="link"
+                class="m-0 p-0"
+              >
+                {{ data.item.titulo }}
+              </b-button>
+              <p>
+                <b-badge href="#" class="mr-1" variant="warning">
+                  {{ data.item.categoria }}
+                </b-badge>
+                <b-badge href="#" variant="danger">
+                  {{ data.item.tipo }}
+                </b-badge>
+              </p>
+            </template>
+          </b-table>
+        </b-tab>
+      </b-tabs>
     </b-col>
   </b-row>
 </template>
@@ -137,13 +189,14 @@ export default {
     },
   },
   created() {
-    // this.isLoading = true;
+    this.isLoading = true;
     this.dados = [];
 
     this.ref1.onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         this.addTrabalho(doc, "2019");
       });
+      this.isLoading = false;
     });
     this.ref2.onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
