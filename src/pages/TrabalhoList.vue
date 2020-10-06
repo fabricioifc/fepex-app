@@ -152,7 +152,7 @@ export default {
       })
       .catch((error) => {
         this.isLoading = false;
-        console.log("Erro ao buscar os trabalhos do firebase!");
+        console.log(error);
       });
 
     // this.ref1.onSnapshot((querySnapshot) => {

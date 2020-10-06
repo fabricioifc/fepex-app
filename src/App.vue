@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <NavBar class="mb-3" />
-    <b-container id="main" class="bg-light">
-      <router-view></router-view>
-    </b-container>
+    <router-view></router-view>
   </div>
 </template>
 

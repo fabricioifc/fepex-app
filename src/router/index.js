@@ -1,7 +1,7 @@
 import VueRouter from "vue-router";
-import TrabalhoList from "@/components/TrabalhoList";
-import TrabalhoItem from "@/components/TrabalhoItem";
-import Home from "@/components/Home";
+import TrabalhoList from "@/pages/TrabalhoList";
+import TrabalhoItem from "@/pages/TrabalhoItem";
+import Home from "@/pages/Home";
 
 export default new VueRouter({
   routes: [
