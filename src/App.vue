@@ -25,7 +25,7 @@ body {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  padding-top: 4.5rem;
+  padding-top: 5rem;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

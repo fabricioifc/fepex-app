@@ -9,36 +9,38 @@
       <template>
         <b-breadcrumb class="mt-3" :items="navegacao_items"></b-breadcrumb>
       </template>
-      <b-card>
-        <b-card-title>
-          {{ board.titulo }}
-          <b-button
-            :href="board.link"
-            variant="outline-danger"
-            target="_blank"
-            class="float-right"
-          >
-            <img alt="PDF" src="../assets/pdf.png" width="40" />
-          </b-button>
-        </b-card-title>
+      <b-card :title="trabalho.titulo">
         <b-card-sub-title class="mb-2">
+          <b-button
+            :href="trabalho.link"
+            variant="outline"
+            target="_blank"
+            class="btn-link"
+          >
+            <img
+              alt="PDF"
+              src="../assets/pdf.png"
+              width="60"
+              class="img-fluid img-thumbnail"
+            />
+          </b-button>
           <b-badge class="mr-1" variant="warning">
-            {{ board.categoria }}
+            {{ trabalho.categoria }}
           </b-badge>
           <b-badge class="mr-1" variant="info">
-            {{ board.tipo }}
+            {{ trabalho.tipo }}
           </b-badge>
         </b-card-sub-title>
         <hr />
         <b-card-text class="justify-content">
-          {{ board.resumo }}
+          {{ trabalho.resumo }}
         </b-card-text>
 
         <b-card-text class="mb-1">
-          <strong>Alunos: </strong> <em>{{ board.autores }}</em>
+          <strong>Alunos: </strong> <em>{{ trabalho.autores }}</em>
         </b-card-text>
         <b-card-text>
-          <strong>Orientadores: </strong> <em>{{ board.orientadores }}</em>
+          <strong>Orientadores: </strong> <em>{{ trabalho.orientadores }}</em>
         </b-card-text>
       </b-card>
     </b-col>
@@ -58,7 +60,7 @@ export default {
       isLoading: false,
       fullPage: false,
       loader: "bars",
-      board: {},
+      trabalho: {},
       navegacao_items: [
         { text: "Início", href: "/" },
         { text: "Trabalhos", to: { name: "TrabalhoList" } },
@@ -79,8 +81,8 @@ export default {
       .then((doc) => {
         if (doc.exists) {
           this.key = doc.id;
-          this.board = doc.data();
-          // console.log(this.board);
+          this.trabalho = doc.data();
+          // console.log(this.trabalho);
         } else {
           console.log("No such document!");
         }
@@ -89,29 +91,7 @@ export default {
         this.isLoading = false;
       });
   },
-  methods: {
-    editboard(id) {
-      router.push({
-        name: "EditBoard",
-        params: { id: id },
-      });
-    },
-    deleteboard(id) {
-      firebase
-        .firestore()
-        .collection("boards")
-        .doc(id)
-        .delete()
-        .then(() => {
-          router.push({
-            name: "BoardList",
-          });
-        })
-        .catch((error) => {
-          alert("Error removing document: ", error);
-        });
-    },
-  },
+  methods: {},
 };
 </script>
 

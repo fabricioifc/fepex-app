@@ -5,20 +5,31 @@
     fixed="top"
     :class="{ sticky: active }"
     class="shadow"
-    :variant="active ? 'secondary' : ''"
     id="navbar"
   >
-    <b-navbar-brand to="/">NavBar</b-navbar-brand>
+    <b-navbar-brand to="/" class="p-0">
+      <img
+        src="../assets/fepex-logo.jpg"
+        width="50"
+        class="d-inline-block align-middle"
+      />
+      Fepex App
+    </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item to="/trabalhos">Trabalhos</b-nav-item>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item to="/trabalhos">
+          <b-button variant="light" class="font-weight-bold">
+            Conheça os Trabalhos
+            <b-icon icon="list" aria-hidden="true"></b-icon>
+          </b-button>
+        </b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+      <!-- <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <b-form-input
             size="sm"
@@ -38,14 +49,13 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
             <em>User</em>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
           <b-dropdown-item href="#">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
-      </b-navbar-nav>
+      </b-navbar-nav> -->
     </b-collapse>
   </b-navbar>
 </template>
@@ -70,4 +80,7 @@ export default {
 </script>
 
 <style>
+#navbar {
+  background-color: #498e6c;
+}
 </style>
