@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <NavBar class="mb-3" />
-    <b-container>
+    <b-container id="main" class="bg-light">
       <router-view></router-view>
     </b-container>
   </div>
@@ -19,12 +18,19 @@ export default {
 </script>
 
 <style>
+body {
+  height: 100%;
+  background: url("./assets/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  padding-top: 4.5rem;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
-  /* margin-top: 60px; */
 }
 </style>

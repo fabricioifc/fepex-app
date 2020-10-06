@@ -1,37 +1,47 @@
 <template>
   <b-row>
-      <loading-overlay :active="isLoading" :is-full-page="fullPage" :loader="loader" />
-      <b-col cols="12">
-        <template>
-          <b-breadcrumb :items="navegacao_items"></b-breadcrumb>
-        </template>
-        <b-card :title="board.titulo">
-          <b-card-sub-title class="mb-2">
-            <b-badge href="#" class="mr-1" variant="warning">
-              {{ board.categoria }}
-            </b-badge>
-            <b-badge href="#" class="mr-1" variant="danger">
-              {{ board.tipo }}
-            </b-badge>
-          </b-card-sub-title>
-          <hr />
-          <b-card-text class="justify-content">
-            {{ board.resumo }}
-          </b-card-text>
-
-          <b-card-text class="mb-1">
-            <strong>Alunos: </strong> <em>{{ board.autores }}</em>
-          </b-card-text>
-          <b-card-text>
-            <strong>Orientadores: </strong> <em>{{ board.orientadores }}</em>
-          </b-card-text>
-
-          <b-button :href="board.link" variant="outline-danger" target="_blank">
-            <img alt="PDF" src="../assets/pdf.png" width="40"> 
+    <loading-overlay
+      :active="isLoading"
+      :is-full-page="fullPage"
+      :loader="loader"
+    />
+    <b-col cols="12" class="mb-3">
+      <template>
+        <b-breadcrumb class="mt-3" :items="navegacao_items"></b-breadcrumb>
+      </template>
+      <b-card>
+        <b-card-title>
+          {{ board.titulo }}
+          <b-button
+            :href="board.link"
+            variant="outline-danger"
+            target="_blank"
+            class="float-right"
+          >
+            <img alt="PDF" src="../assets/pdf.png" width="40" />
           </b-button>
-          
-        </b-card>
-      </b-col>
+        </b-card-title>
+        <b-card-sub-title class="mb-2">
+          <b-badge class="mr-1" variant="warning">
+            {{ board.categoria }}
+          </b-badge>
+          <b-badge class="mr-1" variant="info">
+            {{ board.tipo }}
+          </b-badge>
+        </b-card-sub-title>
+        <hr />
+        <b-card-text class="justify-content">
+          {{ board.resumo }}
+        </b-card-text>
+
+        <b-card-text class="mb-1">
+          <strong>Alunos: </strong> <em>{{ board.autores }}</em>
+        </b-card-text>
+        <b-card-text>
+          <strong>Orientadores: </strong> <em>{{ board.orientadores }}</em>
+        </b-card-text>
+      </b-card>
+    </b-col>
   </b-row>
 </template>
 

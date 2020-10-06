@@ -1,5 +1,13 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+  <b-navbar
+    toggleable="lg"
+    type="dark"
+    fixed="top"
+    :class="{ sticky: active }"
+    class="shadow"
+    :variant="active ? 'secondary' : ''"
+    id="navbar"
+  >
     <b-navbar-brand to="/">NavBar</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -45,6 +53,19 @@
 <script>
 export default {
   name: "NavBar",
+  data() {
+    return { active: false };
+  },
+  mounted() {
+    window.document.onscroll = () => {
+      let navBar = document.getElementById("navbar");
+      if (window.scrollY > navBar.offsetTop) {
+        this.active = true;
+      } else {
+        this.active = false;
+      }
+    };
+  },
 };
 </script>
 
