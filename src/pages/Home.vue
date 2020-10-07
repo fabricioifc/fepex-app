@@ -132,7 +132,7 @@ export default {
     font-size: 0.9rem;
   }
   .carousel-caption {
-    top: 1%;
+    top: 5%;
     padding-top: 0;
     padding-bottom: 0;
   }
