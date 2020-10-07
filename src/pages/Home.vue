@@ -1,14 +1,25 @@
 <template>
   <b-container>
+    <b-row align-h="center">
+      <b-button
+        @click="irParaTrabalhos()"
+        variant="light"
+        align-self="center"
+        class="d-xs-block d-sm-block d-md-block d-lg-none d-xl-none"
+      >
+        <b-icon icon="list" aria-hidden="true"></b-icon>
+        Confira os Trabalhos dos nossos Alunos
+      </b-button>
+    </b-row>
+    <hr class="d-xs-block d-sm-block d-md-block d-lg-none d-xl-none" />
     <b-row align-v="center">
       <b-col cols="12" class="text-center">
         <b-carousel
           id="carousel-1"
           v-model="slide"
-          :interval="4000"
+          :interval="5000"
           fade
           controls
-          indicators
           @sliding-start="onSlideStart"
           @sliding-end="onSlideEnd"
         >
@@ -20,14 +31,14 @@
               <b-button
                 :to="`/trabalhos/${trabalho.ano}/${trabalho.key}`"
                 variant="warning"
-                class=""
+                class="p-1"
                 >Conheça esse Trabalho</b-button
               >
               <template v-slot:img>
                 <img
                   class="d-block img-fluid w-100"
-                  width="300"
-                  height="100"
+                  width="500"
+                  height="300"
                   src="../assets/carousel-1.png"
                   alt="image slot"
                 />
@@ -42,6 +53,7 @@
 
 <script>
 import firebase from "../Firebase";
+import router from "../router";
 
 export default {
   name: "Home",
@@ -50,6 +62,7 @@ export default {
       slide: 0,
       sliding: null,
       ref1: firebase.firestore().collection("Trabalhos2019"),
+      ids: [],
       dados: [],
       quantidade: 5,
       ano: "2019",
@@ -59,13 +72,14 @@ export default {
     let trabalhos = await this.ref1.get();
 
     let size = trabalhos.size;
-    for (let i = 0; i < this.quantidade; i++) {
-      let index = Math.floor(Math.random() * trabalhos.size);
+    console.log(this.getRandomIds(size));
+    this.getRandomIds(size).forEach((index) => {
       let doc = trabalhos.docs[index].data();
       let id = trabalhos.docs[index].id;
+
       this.dados.push({
         key: id,
-        titulo: doc.titulo,
+        titulo: this.getTituloReduzido(doc.titulo, 55),
         resumo: doc.resumo || "",
         autores: doc.autores || "",
         categoria: doc.categoria || "",
@@ -74,14 +88,35 @@ export default {
         tipo: doc.tipo || "",
         ano: this.ano,
       });
-    }
+    });
   },
   methods: {
+    getTituloReduzido(texto, tamanho) {
+      return texto.length > tamanho
+        ? `${texto.substring(0, tamanho)}...`
+        : texto;
+    },
+    // pega 5 ids randomicos a partir da quantidade de trabalhos
+    getRandomIds(quantidadeDeTrabalhos) {
+      let ids = [];
+      while (ids.length < 5) {
+        let index = Math.floor(Math.random() * quantidadeDeTrabalhos);
+        if (!ids.includes(index)) {
+          ids.push(index);
+        }
+      }
+      return ids;
+    },
     onSlideStart(slide) {
       this.sliding = true;
     },
     onSlideEnd(slide) {
       this.sliding = false;
+    },
+    irParaTrabalhos() {
+      router.push({
+        name: "TrabalhoList",
+      });
     },
   },
 };
@@ -89,10 +124,21 @@ export default {
 
 <style>
 .carousel-caption {
-  /* position: absolute; */
-  top: 25%;
+  top: 15%;
 }
-.carousel-text {
-  color: brown;
+
+@media (max-width: 767px) {
+  .carousel-caption h3 {
+    font-size: 0.9rem;
+  }
+  .carousel-caption {
+    top: 1%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .carousel-caption p {
+    display: none;
+  }
 }
 </style>
