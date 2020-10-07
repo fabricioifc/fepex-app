@@ -79,7 +79,7 @@ export default {
 
       this.dados.push({
         key: id,
-        titulo: this.getTituloReduzido(doc.titulo, 55),
+        titulo: this.getTituloReduzido(doc.titulo, 50),
         resumo: doc.resumo || "",
         autores: doc.autores || "",
         categoria: doc.categoria || "",
@@ -132,9 +132,7 @@ export default {
     font-size: 0.9rem;
   }
   .carousel-caption {
-    top: 5%;
-    padding-top: 0;
-    padding-bottom: 0;
+    top: 1%;
   }
 
   .carousel-caption p {
