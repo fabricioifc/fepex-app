@@ -1,7 +1,8 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-button
+<b-col>
+        <b-button
         @click="irParaTrabalhos()"
         variant="light"
         align-self="center"
@@ -10,6 +11,7 @@
         <b-icon icon="list" aria-hidden="true"></b-icon>
         Confira os Trabalhos dos nossos Alunos
       </b-button>
+</b-col>
     </b-row>
     <hr class="d-xs-block d-sm-block d-md-block d-lg-none d-xl-none" />
     <b-row align-v="center">
