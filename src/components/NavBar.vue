@@ -22,8 +22,8 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/trabalhos">
           <b-button variant="light" class="font-weight-bold">
-            Conheça os Trabalhos
             <b-icon icon="list" aria-hidden="true"></b-icon>
+            Confira mais Trabalhos dos nossos Alunos
           </b-button>
         </b-nav-item>
       </b-navbar-nav>

@@ -1,5 +1,6 @@
 <template>
-  <b-row class="mb-5">
+  <b-container id="container" class="shadow">
+    <b-row class="mb-5">
     <loading-overlay
       :active="isLoading"
       :is-full-page="fullPage"
@@ -36,7 +37,7 @@
         responsive="sm"
       >
         <template v-slot:cell(titulo)="data">
-          <b-link @click.stop="details(data.item)" class="text-secondary small">
+          <b-link @click.stop="details(data.item)" class="text-dark small">
             {{ data.item.titulo }}
           </b-link>
           <h6 class="d-sm-none">
@@ -64,6 +65,7 @@
       </b-table>
     </b-col>
   </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -207,5 +209,8 @@ export default {
 .table {
   width: 96%;
   margin: 0 auto;
+}
+#container {
+  background-color: #ffffff;
 }
 </style>

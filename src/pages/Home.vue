@@ -1,84 +1,80 @@
 <template>
   <b-container>
     <b-row align-v="center">
-      <b-col cols="4">Teste</b-col>
-      <b-col cols="8" class="text-center">
+      <b-col cols="12" class="text-center">
         <b-carousel
           id="carousel-1"
           v-model="slide"
           :interval="4000"
+          fade
           controls
           indicators
-          background="#ababab"
-          img-width="1024"
-          img-height="480"
-          style="text-shadow: 1px 1px 2px #333"
           @sliding-start="onSlideStart"
           @sliding-end="onSlideEnd"
         >
-          <!-- Text slides with image -->
-          <b-carousel-slide
-            caption="First slide"
-            text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-            img-src="https://picsum.photos/1024/480/?image=52"
-          ></b-carousel-slide>
-
-          <!-- Slides with custom text -->
-          <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-            <h1>Hello world!</h1>
-          </b-carousel-slide>
-
-          <!-- Slides with image only -->
-          <b-carousel-slide
-            img-src="https://picsum.photos/1024/480/?image=58"
-          ></b-carousel-slide>
-
-          <!-- Slides with img slot -->
-          <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-          <b-carousel-slide>
-            <template v-slot:img>
-              <img
-                class="d-block img-fluid w-100"
-                width="1024"
-                height="480"
-                src="https://picsum.photos/1024/480/?image=55"
-                alt="image slot"
-              />
-            </template>
-          </b-carousel-slide>
-
-          <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-          <b-carousel-slide
-            caption="Blank Image"
-            img-blank
-            img-alt="Blank image"
-          >
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse eros felis, tincidunt a tincidunt eget, convallis vel
-              est. Ut pellentesque ut lacus vel interdum.
-            </p>
-          </b-carousel-slide>
+          <div v-for="trabalho in dados" :key="trabalho.key">
+            <b-carousel-slide
+              :caption="trabalho.titulo"
+              :text="`${trabalho.tipo} - ${trabalho.categoria}`"
+            >
+              <b-button
+                :to="`/trabalhos/${trabalho.ano}/${trabalho.key}`"
+                variant="warning"
+                class=""
+                >Conheça esse Trabalho</b-button
+              >
+              <template v-slot:img>
+                <img
+                  class="d-block img-fluid w-100"
+                  width="300"
+                  height="100"
+                  src="../assets/carousel-1.png"
+                  alt="image slot"
+                />
+              </template>
+            </b-carousel-slide>
+          </div>
         </b-carousel>
-
-        <p class="mt-4">
-          <b-button variant="info" class="font-weight-bold">
-            Confira mais Trabalhos dos nossos Alunos
-          </b-button>
-        </p>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
+import firebase from "../Firebase";
+
 export default {
   name: "Home",
   data() {
     return {
       slide: 0,
       sliding: null,
+      ref1: firebase.firestore().collection("Trabalhos2019"),
+      dados: [],
+      quantidade: 5,
+      ano: "2019",
     };
+  },
+  async created() {
+    let trabalhos = await this.ref1.get();
+
+    let size = trabalhos.size;
+    for (let i = 0; i < this.quantidade; i++) {
+      let index = Math.floor(Math.random() * trabalhos.size);
+      let doc = trabalhos.docs[index].data();
+      let id = trabalhos.docs[index].id;
+      this.dados.push({
+        key: id,
+        titulo: doc.titulo,
+        resumo: doc.resumo || "",
+        autores: doc.autores || "",
+        categoria: doc.categoria || "",
+        link: doc.link || "",
+        orientadores: doc.orientadores || "",
+        tipo: doc.tipo || "",
+        ano: this.ano,
+      });
+    }
   },
   methods: {
     onSlideStart(slide) {
@@ -90,3 +86,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.carousel-caption {
+  /* position: absolute; */
+  top: 25%;
+}
+.carousel-text {
+  color: brown;
+}
+</style>

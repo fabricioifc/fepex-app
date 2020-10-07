@@ -1,50 +1,52 @@
 <template>
-  <b-row>
-    <loading-overlay
-      :active="isLoading"
-      :is-full-page="fullPage"
-      :loader="loader"
-    />
-    <b-col cols="12" class="mb-3">
-      <template>
-        <b-breadcrumb class="mt-3" :items="navegacao_items"></b-breadcrumb>
-      </template>
-      <b-card :title="trabalho.titulo">
-        <b-card-sub-title class="mb-2">
-          <b-button
-            :href="trabalho.link"
-            variant="outline"
-            target="_blank"
-            class="btn-link"
-          >
-            <img
-              alt="PDF"
-              src="../assets/pdf.png"
-              width="60"
-              class="img-fluid img-thumbnail"
-            />
-          </b-button>
-          <b-badge class="mr-1" variant="warning">
-            {{ trabalho.categoria }}
-          </b-badge>
-          <b-badge class="mr-1" variant="info">
-            {{ trabalho.tipo }}
-          </b-badge>
-        </b-card-sub-title>
-        <hr />
-        <b-card-text class="justify-content">
-          {{ trabalho.resumo }}
-        </b-card-text>
+  <b-container>
+    <b-row>
+      <loading-overlay
+        :active="isLoading"
+        :is-full-page="fullPage"
+        :loader="loader"
+      />
+      <b-col cols="12" class="mb-3">
+        <template>
+          <b-breadcrumb class="mt-3" :items="navegacao_items"></b-breadcrumb>
+        </template>
+        <b-card :title="trabalho.titulo">
+          <b-card-sub-title class="mb-2">
+            <b-button
+              :href="trabalho.link"
+              variant="outline"
+              target="_blank"
+              class="btn-link"
+            >
+              <img
+                alt="PDF"
+                src="../assets/pdf.png"
+                width="60"
+                class="img-fluid img-thumbnail"
+              />
+            </b-button>
+            <b-badge class="mr-1" variant="warning">
+              {{ trabalho.categoria }}
+            </b-badge>
+            <b-badge class="mr-1" variant="info">
+              {{ trabalho.tipo }}
+            </b-badge>
+          </b-card-sub-title>
+          <hr />
+          <b-card-text class="justify-content">
+            {{ trabalho.resumo }}
+          </b-card-text>
 
-        <b-card-text class="mb-1">
-          <strong>Alunos: </strong> <em>{{ trabalho.autores }}</em>
-        </b-card-text>
-        <b-card-text>
-          <strong>Orientadores: </strong> <em>{{ trabalho.orientadores }}</em>
-        </b-card-text>
-      </b-card>
-    </b-col>
-  </b-row>
+          <b-card-text class="mb-1">
+            <strong>Alunos: </strong> <em>{{ trabalho.autores }}</em>
+          </b-card-text>
+          <b-card-text>
+            <strong>Orientadores: </strong> <em>{{ trabalho.orientadores }}</em>
+          </b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
