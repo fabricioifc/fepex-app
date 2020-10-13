@@ -7,6 +7,17 @@
       :loader="loader"
     />
     <b-col cols="12">
+      <div class="mt-2 text-center">
+        <b-button
+          squared 
+          :pressed="ano == anoAtual" 
+          :variant="ano == anoAtual ? 'success' : 'secondary'" 
+          class="mr-2" 
+          :key="ano" v-for="ano in anos" :title="ano" @click="getTrabalhosAno(ano)">
+          {{ano}}
+        </b-button>
+      </div>
+        
       <b-input-group size="md" class="mt-3 mb-3">
         <b-form-input v-model="keyword" placeholder="Procurar..." type="text">
         </b-form-input>
@@ -80,6 +91,8 @@ export default {
       fullPage: false,
       loader: "bars",
       keyword: "",
+      anos: [2020, 2019, 2018, 2017, 2016],
+      anoAtual: 2020,
       fields: [
         {
           key: "ano",
@@ -110,10 +123,11 @@ export default {
       ],
       dados: [],
       errors: [],
-      ref1: firebase.firestore().collection("Trabalhos2019"),
-      ref2: firebase.firestore().collection("Trabalhos2018"),
-      ref3: firebase.firestore().collection("Trabalhos2017"),
-      ref4: firebase.firestore().collection("Trabalhos2016"),
+      // ref1: firebase.firestore().collection("Trabalhos2020"),
+      // ref2: firebase.firestore().collection("Trabalhos2019"),
+      // ref3: firebase.firestore().collection("Trabalhos2018"),
+      // ref4: firebase.firestore().collection("Trabalhos2017"),
+      // ref5: firebase.firestore().collection("Trabalhos2016"),
     };
   },
   computed: {
@@ -135,27 +149,31 @@ export default {
     this.isLoading = true;
     this.dados = [];
 
-    const t1 = await this.ref1.get();
-    const t2 = await this.ref2.get();
-    const t3 = await this.ref3.get();
-    const t4 = await this.ref4.get();
-    Promise.all([t1, t2, t3, t4])
-      .then((snapshot) => {
-        snapshot.forEach((query, index) => {
-          let anos = ["2019", "2018", "2017", "2016"];
-          let cores = ["success", "secondary", "primary", "light"];
-          query.forEach((doc) => {
-            this.addTrabalho(doc, anos[index], cores[index]);
-          });
-        });
-      })
-      .then(() => {
-        this.isLoading = false;
-      })
-      .catch((error) => {
-        this.isLoading = false;
-        console.log(error);
-      });
+    this.getTrabalhosAno(this.anos[0])
+
+    // const t1 = await this.ref1.get();
+    // const t2 = await this.ref2.get();
+    // const t3 = await this.ref3.get();
+    // const t4 = await this.ref4.get();
+    // const t5 = await this.ref5.get();
+
+    // Promise.all([t1])
+    //   .then((snapshot) => {
+    //     snapshot.forEach((query, index) => {
+    //       let anos = ["2020", "2019", "2018", "2017", "2016"];
+    //       let cores = ["success", "secondary", "primary", "light"];
+    //       query.forEach((doc) => {
+    //         this.addTrabalho(doc, anos[index], cores[index]);
+    //       });
+    //     });
+    //   })
+    //   .then(() => {
+    //     this.isLoading = false;
+    //   })
+    //   .catch((error) => {
+    //     this.isLoading = false;
+    //     console.log(error);
+    //   });
 
     // this.ref1.onSnapshot((querySnapshot) => {
     //   querySnapshot.forEach((doc) => {
@@ -201,6 +219,27 @@ export default {
         params: { id: trabalho.key, ano: trabalho.ano },
       });
     },
+    async getTrabalhosAno(ano) {
+      try {
+        this.isLoading = true;
+        this.anoAtual = ano;
+        this.keyword = ''
+        
+        const ref = firebase.firestore().collection(`Trabalhos${ano}`)
+        const dados = await ref.get();
+        this.dados = []
+        
+        dados.forEach((doc) => {
+          this.addTrabalho(doc, ano, "info");
+        });
+        
+      } catch (error) {
+        this.isLoading = false;
+        console.log(error);
+      } finally {
+        this.isLoading = false;
+      }
+    }
   },
 };
 </script>
