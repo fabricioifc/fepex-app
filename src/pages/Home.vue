@@ -63,15 +63,14 @@ export default {
     return {
       slide: 0,
       sliding: null,
-      ref1: firebase.firestore().collection("Trabalhos2019"),
       ids: [],
       dados: [],
-      quantidade: 5,
-      ano: "2019",
+      quantidade: 10,
+      ano: 2020,
     };
   },
   async created() {
-    let trabalhos = await this.ref1.get();
+    let trabalhos = await firebase.firestore().collection(`Trabalhos${this.ano}`).get();
 
     let size = trabalhos.size;
     console.log(this.getRandomIds(size));
@@ -101,7 +100,7 @@ export default {
     // pega 5 ids randomicos a partir da quantidade de trabalhos
     getRandomIds(quantidadeDeTrabalhos) {
       let ids = [];
-      while (ids.length < 5) {
+      while (ids.length < this.quantidade) {
         let index = Math.floor(Math.random() * quantidadeDeTrabalhos);
         if (!ids.includes(index)) {
           ids.push(index);

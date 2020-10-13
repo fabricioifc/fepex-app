@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 // const settings = {timestampsInSnapshots: true};
 
@@ -12,7 +13,7 @@ const config = {
   appId: "1:108785397058:web:913db4ebe4db4e0a",
 };
 
-firebase.initializeApp(config);
+export const db = firebase.initializeApp(config).firestore();
 
 // firebase.firestore().settings(settings);
 

@@ -6,18 +6,20 @@
       :is-full-page="fullPage"
       :loader="loader"
     />
-    <b-col cols="12">
-      <div class="mt-2 text-center">
-        <b-button
+      <b-col cols="12">
+        <b-button-group class="mt-2">
+          <b-button
           squared 
           :pressed="ano == anoAtual" 
           :variant="ano == anoAtual ? 'success' : 'secondary'" 
-          class="mr-2" 
+          class="mr-1" 
           :key="ano" v-for="ano in anos" :title="ano" @click="getTrabalhosAno(ano)">
+          <b-icon :icon="ano === anoAtual ? 'check-circle' : 'circle'" aria-hidden="true"></b-icon>
           {{ano}}
         </b-button>
-      </div>
-        
+      </b-button-group>
+    </b-col>
+    <b-col cols="12">        
       <b-input-group size="md" class="mt-3 mb-3">
         <b-form-input v-model="keyword" placeholder="Procurar..." type="text">
         </b-form-input>
@@ -244,7 +246,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .table {
   width: 96%;
   margin: 0 auto;
