@@ -1,89 +1,127 @@
 <template>
-  <b-container id="container" class="shadow">
+  <b-container
+    id="container"
+    class="shadow"
+  >
     <b-row class="mb-5">
-    <loading-overlay
-      :active="isLoading"
-      :is-full-page="fullPage"
-      :loader="loader"
-    />
+      <loading-overlay
+        :active="isLoading"
+        :is-full-page="fullPage"
+        :loader="loader"
+      />
       <b-col cols="12">
         <b-button-group class="mt-2">
           <b-button
-          squared 
-          :pressed="ano == anoAtual" 
-          :variant="ano == anoAtual ? 'success' : 'secondary'" 
-          class="mr-1" 
-          :key="ano" v-for="ano in anos" :title="ano" @click="getTrabalhosAno(ano)">
-          <b-icon :icon="ano === anoAtual ? 'check-circle' : 'circle'" aria-hidden="true"></b-icon>
-          {{ano}}
-        </b-button>
-      </b-button-group>
-    </b-col>
-    <b-col cols="12">        
-      <b-input-group size="md" class="mt-3 mb-3">
-        <b-form-input v-model="keyword" placeholder="Procurar..." type="text">
-        </b-form-input>
-        <b-input-group-append>
-          <b-button
-            size="md"
-            variant="link"
-            :disabled="!keyword"
-            @click="keyword = ''"
+            squared
+            :pressed="ano == anoAtual"
+            :variant="ano == anoAtual ? 'success' : 'secondary'"
+            class="mr-1"
+            :key="ano"
+            v-for="ano in anos"
+            :title="ano"
+            @click="getTrabalhosAno(ano)"
           >
             <b-icon
-              icon="backspace"
+              :icon="ano === anoAtual ? 'check-circle' : 'circle'"
               aria-hidden="true"
-              variant="danger"
             ></b-icon>
+            {{ano}}
           </b-button>
-        </b-input-group-append>
-      </b-input-group>
+        </b-button-group>
+      </b-col>
+      <b-col cols="12">
+        <b-input-group
+          size="md"
+          class="mt-3 mb-3"
+        >
+          <b-form-input
+            v-model="keyword"
+            placeholder="Procurar..."
+            type="text"
+          >
+          </b-form-input>
+          <b-input-group-append>
+            <b-button
+              size="md"
+              variant="link"
+              :disabled="!keyword"
+              @click="keyword = ''"
+            >
+              <b-icon
+                icon="backspace"
+                aria-hidden="true"
+                variant="danger"
+              ></b-icon>
+            </b-button>
+          </b-input-group-append>
+        </b-input-group>
 
-      <!-- :items="items.filter((item) => item.ano == '2019')" -->
-      <b-table
-        small
-        striped
-        hover
-        :items="items"
-        :fields="fields"
-        :keyword="keyword"
-        responsive="sm"
-      >
-        <template v-slot:cell(titulo)="data">
-          <b-link @click.stop="details(data.item)" class="text-dark small">
-            {{ data.item.titulo }}
-          </b-link>
-          <h6 class="d-sm-none">
-            <b-badge class="mr-1" variant="dark">
-              {{ data.item.ano }}
-            </b-badge>
-            <b-badge class="mr-1" variant="warning">
+        <!-- :items="items.filter((item) => item.ano == '2019')" -->
+        <b-table
+          small
+          striped
+          hover
+          :items="items"
+          :fields="fields"
+          :keyword="keyword"
+          responsive="sm"
+        >
+          <template v-slot:cell(titulo)="data">
+            <b-link
+              @click.stop="details(data.item)"
+              class="text-dark small"
+            >
+              {{ data.item.titulo }}
+            </b-link>
+            <h6 class="d-sm-none">
+              <b-badge
+                class="mr-1"
+                variant="dark"
+              >
+                {{ data.item.ano }}
+              </b-badge>
+              <b-badge
+                class="mr-1"
+                variant="warning"
+              >
+                {{ data.item.categoria }}
+              </b-badge>
+              <b-badge
+                class="mr-1"
+                variant="info"
+              >
+                {{ data.item.tipo }}
+              </b-badge>
+            </h6>
+          </template>
+          <template v-slot:cell(categoria)="data">
+            <b-badge
+              href="#"
+              class="mr-1"
+              variant="warning"
+            >
               {{ data.item.categoria }}
             </b-badge>
-            <b-badge class="mr-1" variant="info">
+          </template>
+          <template v-slot:cell(tipo)="data">
+            <b-badge
+              href="#"
+              class="mr-1"
+              variant="info"
+            >
               {{ data.item.tipo }}
             </b-badge>
-          </h6>
-        </template>
-        <template v-slot:cell(categoria)="data">
-          <b-badge href="#" class="mr-1" variant="warning">
-            {{ data.item.categoria }}
-          </b-badge>
-        </template>
-        <template v-slot:cell(tipo)="data">
-          <b-badge href="#" class="mr-1" variant="info">
-            {{ data.item.tipo }}
-          </b-badge>
-        </template>
-      </b-table>
-    </b-col>
-  </b-row>
+          </template>
+        </b-table>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import firebase from "../Firebase";
 import router from "../router";
+import Trabalhos2021 from "../data/Trabalhos";
 
 export default {
   name: "TrabalhoList",
@@ -93,8 +131,8 @@ export default {
       fullPage: false,
       loader: "bars",
       keyword: "",
-      anos: [2020, 2019, 2018, 2017, 2016],
-      anoAtual: 2020,
+      anos: [2021, 2020, 2019, 2018, 2017, 2016],
+      anoAtual: 2021,
       fields: [
         {
           key: "ano",
@@ -130,6 +168,7 @@ export default {
       // ref3: firebase.firestore().collection("Trabalhos2018"),
       // ref4: firebase.firestore().collection("Trabalhos2017"),
       // ref5: firebase.firestore().collection("Trabalhos2016"),
+      ref6: firebase.firestore().collection("Trabalhos2021"),
     };
   },
   computed: {
@@ -151,13 +190,35 @@ export default {
     this.isLoading = true;
     this.dados = [];
 
-    this.getTrabalhosAno(this.anos[0])
+    this.getTrabalhosAno(this.anos[0]);
 
     // const t1 = await this.ref1.get();
     // const t2 = await this.ref2.get();
     // const t3 = await this.ref3.get();
     // const t4 = await this.ref4.get();
     // const t5 = await this.ref5.get();
+
+    // Remover todos de 2021
+    this.ref6
+      .get()
+      .then((result) => {
+        result.forEach((item) => {
+          item.ref.delete();
+        });
+
+        // Adicionar todos de 2021
+        Trabalhos2021.forEach((item) => {
+          this.ref6
+            .add(item)
+            .then((result) => {
+              this.ref6.doc(result.id).update({ id: result.id });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+      })
+      .catch((err) => {});
 
     // Promise.all([t1])
     //   .then((snapshot) => {
@@ -225,23 +286,22 @@ export default {
       try {
         this.isLoading = true;
         this.anoAtual = ano;
-        this.keyword = ''
-        
-        const ref = firebase.firestore().collection(`Trabalhos${ano}`)
+        this.keyword = "";
+
+        const ref = firebase.firestore().collection(`Trabalhos${ano}`);
         const dados = await ref.get();
-        this.dados = []
-        
+        this.dados = [];
+
         dados.forEach((doc) => {
           this.addTrabalho(doc, ano, "info");
         });
-        
       } catch (error) {
         this.isLoading = false;
         console.log(error);
       } finally {
         this.isLoading = false;
       }
-    }
+    },
   },
 };
 </script>
